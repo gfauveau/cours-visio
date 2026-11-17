@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Cours en Visio</title>
+    <title>1re NSI — Cours en Visio</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="navbar">
-        <h1>🎓 Espace Cours Interactif</h1>
-        <p>Supports de cours et exercices en direct</p>
+        <div class="navbar-inner">
+            <span class="navbar-tag">Spécialité Numérique et Sciences Informatiques</span>
+            <h1>🐍 1re NSI — Espace Visio Interactif</h1>
+            <p>Supports de cours, check-points QCM et environnement Python exécutable en direct</p>
+        </div>
     </header>
 
     <main class="container">
-        <h2>Séances disponibles</h2>
+        <h2 class="section-title">📚 Séances disponibles</h2>
         <div class="grid-seances">
             <a href="seance-1.html" class="card">
-                <span class="badge">Séance 01</span>
-                <h3>Introduction et concepts clés</h3>
-                <p>Notions fondamentales, quiz en direct et exercice pratique.</p>
+                <div>
+                    <span class="badge">Séance 01 • Représentation des données</span>
+                    <h3>Texte, Image et Son en Python</h3>
+                    <p>Encodage ASCII/Unicode, images matricielles, échantillonnage audio et manipulation par boucles et fonctions.</p>
+                </div>
+                <div class="card-footer">Ouvrir la séance →</div>
             </a>
+
             <div class="card disabled">
-                <span class="badge">Séance 02</span>
-                <h3>Approfondissement (À venir)</h3>
-                <p>Disponible lors de la prochaine session visio.</p>
+                <div>
+                    <span class="badge">Séance 02 • Algorithmique</span>
+                    <h3>Tris par insertion et sélection</h3>
+                    <p>Visualisation des invariants de boucle et mesure de complexité.</p>
+                </div>
+                <div class="card-footer">🔒 Disponible prochainement</div>
             </div>
         </div>
     </main>

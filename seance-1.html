@@ -3,58 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Séance 01 - Cours Interactif</title>
+    <title>Séance 01 — Codage Texte, Image et Son (1re NSI)</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="back-link">← Retour aux séances</a>
-        <h1>Séance 01 : Concepts fondamentaux</h1>
-    </nav>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="back-link">← Retour au programme</a>
+            <br>
+            <span class="navbar-tag">Séance 01 • Représentation des données &amp; Python</span>
+            <h1>Codage du Texte, de l'Image et du Son</h1>
+            <p>Du bit aux structures Python (boucles bornées et fonctions)</p>
+        </div>
+    </header>
 
     <main class="container">
         <!-- PARTIE 1 : NOTIONS DE COURS -->
-        <section class="box cours">
-            <h2>📖 1. Notions essentielles</h2>
-            <p>Voici les points clés à retenir pour cette séance :</p>
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📖</div>
+                <h2>1. Synthèse de cours : Tout est binaire</h2>
+            </div>
+
+            <h3>A. Codage du texte (ASCII &amp; Unicode / UTF-8)</h3>
             <ul>
-                <li><strong>Définition 1 :</strong> Explication claire et concise du premier concept.</li>
-                <li><strong>Règle d'or :</strong> Ce qu'il faut toujours vérifier avant de se lancer.</li>
+                <li><strong>ASCII :</strong> Code historique sur <strong>7 bits</strong> (128 caractères : lettres non accentuées, chiffres, ponctuation).</li>
+                <li><strong>Unicode (UTF-8) :</strong> Standard universel (plus de 140 000 symboles, accents, emojis) à taille variable (1 à 4 octets), rétrocompatible avec l'ASCII.</li>
+                <li><strong>En Python :</strong> <code>ord('A')</code> renvoie le point de code entier (<code>65</code>) et <code>chr(65)</code> renvoie le caractère (<code>'A'</code>).</li>
+            </ul>
+
+            <h3>B. Codage d'une image matricielle (Bitmap)</h3>
+            <ul>
+                <li><strong>Définition :</strong> Nombre total de pixels = <code>Largeur × Hauteur</code>.</li>
+                <li><strong>Profondeur de couleur :</strong> Nombre de bits par pixel (1 bit en noir &amp; blanc, 8 bits = 256 niveaux de gris, <strong>24 bits</strong> en RVB soit 3 octets : Rouge, Vert, Bleu de 0 à 255).</li>
+                <li><strong>En Python :</strong> Une image en niveaux de gris est souvent modélisée par une liste de listes (matrice 2D) et parcourue par deux boucles imbriquées.</li>
+            </ul>
+
+            <h3>C. Codage du son numérique</h3>
+            <ul>
+                <li><strong>Échantillonnage (<em>f</em> en Hz) :</strong> Nombre de mesures par seconde (ex. qualité CD = 44 100 Hz).</li>
+                <li><strong>Quantification (<em>q</em> en bits) :</strong> Précision de chaque mesure (ex. 16 bits).</li>
+                <li><strong>Canaux (<em>c</em>) :</strong> 1 en mono, 2 en stéréo.</li>
             </ul>
             <div class="callout">
-                💡 <strong>À retenir :</strong> Une astuce visuelle ou mnémotechnique à partager à l'écran.
+                💡 <strong>Formule du poids d'un fichier audio brut (non compressé) :</strong><br>
+                <code>Taille (en bits) = Fréquence (Hz) × Quantification (bits) × Canaux × Durée (s)</code><br>
+                <em>(Diviser par 8 pour obtenir des octets, puis par 1000 pour des ko ou 1024 pour des Kio).</em>
             </div>
         </section>
 
-        <!-- PARTIE 2 : QUIZ EN DIRECT -->
-        <section class="box exercice">
-            <h2>⚡ 2. Check-point en direct (QCM)</h2>
-            <p>Quelle est la bonne affirmation ?</p>
-            <div class="quiz-options" id="quiz-1">
-                <button onclick="verifierReponse(this, false)">Option A : Première proposition</button>
-                <button onclick="verifierReponse(this, true)">Option B : La bonne réponse</button>
-                <button onclick="verifierReponse(this, false)">Option C : Troisième proposition</button>
+        <!-- PARTIE 2 : CHECK-POINT QCM -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">⚡</div>
+                <h2>2. Check-point rapide</h2>
+            </div>
+            <p>Combien d'octets occupe une image RVB (24 bits) non compressée de définition <strong>100 × 50 pixels</strong> ?</p>
+            <div class="quiz-options">
+                <button onclick="verifierReponse(this, false)">5 000 octets</button>
+                <button onclick="verifierReponse(this, true)">15 000 octets (5 000 pixels × 3 octets)</button>
+                <button onclick="verifierReponse(this, false)">120 000 octets</button>
             </div>
             <p id="quiz-feedback" class="feedback"></p>
         </section>
 
-        <!-- PARTIE 3 : EXERCICE PRATIQUE & CORRECTION MASQUÉE -->
-        <section class="box exercice">
-            <h2>✍️ 3. Exercice d'application</h2>
-            <p><strong>Consigne :</strong> Résolvez le problème suivant en 5 minutes. Nous corrigeons ensemble juste après.</p>
-            <textarea placeholder="Zone de brouillon pour l'élève pendant la visio..." rows="4"></textarea>
+        <!-- PARTIE 3 : EXERCICE 1 - TEXTE & PYTHON -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🔤</div>
+                <h2>3. Exercice Python 1 : Texte et code ASCII</h2>
+            </div>
+            <p>Écrivez la fonction <code>somme_ascii(chaine)</code> qui parcourt chaque caractère de <code>chaine</code> avec une boucle et renvoie la somme de leurs codes ASCII/Unicode (via <code>ord()</code>).</p>
             
-            <button class="btn-primary" onclick="toggleCorrection('corr-1')">
-                Afficher / Masquer la correction
+            <div class="ide-container" id="ide-1">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">codage_texte.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-1')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-1')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def somme_ascii(chaine):
+    total = 0
+    # Parcourez chaque caractère de chaine et ajoutez ord(caractere) à total
+    
+    return total
+
+# Tests de vérification
+assert somme_ascii("NSI") == 78 + 83 + 73, "Erreur sur 'NSI'"
+assert somme_ascii("") == 0, "Erreur sur chaîne vide"
+print("✅ Exercice 1 validé ! Somme pour 'NSI' =", somme_ascii("NSI"))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-1')">
+                Afficher / Masquer le corrigé
             </button>
-            
             <div id="corr-1" class="correction hidden">
-                <h4>✅ Correction détaillée :</h4>
-                <p>Voici les étapes de résolution à commenter ensemble à l'oral.</p>
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def somme_ascii(chaine):
+    total = 0
+    for caractere in chaine:
+        total = total + ord(caractere)
+    return total</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 4 : EXERCICE 2 - IMAGE & BOUCLES IMBRIQUÉES -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🖼️</div>
+                <h2>4. Exercice Python 2 : Seuillage d'une image en niveaux de gris</h2>
+            </div>
+            <p>Une image 3×3 en niveaux de gris (0 à 255) est représentée par une matrice. Complétez la fonction <code>compter_pixels_clairs(image, seuil)</code> qui renvoie le nombre de pixels strictement supérieurs à <code>seuil</code>.</p>
+            
+            <div class="ide-container" id="ide-2">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">traitement_image.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-2')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-2')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def compter_pixels_clairs(image, seuil):
+    compteur = 0
+    # Utilisez deux boucles imbriquées (lignes puis pixels)
+    
+    return compteur
+
+img_test = [
+    [10,  200, 50],
+    [240, 128, 30],
+    [90,  255, 180]
+]
+
+assert compter_pixels_clairs(img_test, 150) == 4, "Il y a 4 pixels > 150"
+print("✅ Exercice 2 validé ! Pixels clairs trouvés :", compter_pixels_clairs(img_test, 150))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-2')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-2" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def compter_pixels_clairs(image, seuil):
+    compteur = 0
+    for ligne in image:
+        for pixel in ligne:
+            if pixel > seuil:
+                compteur += 1
+    return compteur</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 5 : EXERCICE 3 - CALCULATEUR AUDIO -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🎵</div>
+                <h2>5. Exercice Python 3 : Poids d'un enregistrement audio</h2>
+            </div>
+            <p>Complétez la fonction <code>taille_audio_ko(freq, quantif, canaux, duree)</code> qui renvoie la taille du fichier en <strong>kilooctets (ko)</strong> (avec 1 octet = 8 bits et 1 ko = 1000 octets).</p>
+            
+            <div class="ide-container" id="ide-3">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">calcul_audio.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-3')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-3')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def taille_audio_ko(freq, quantif, canaux, duree):
+    # Calculez la taille en bits, puis convertissez en octets puis en ko
+    pass
+
+# Test : 10 secondes de son qualité CD (44100 Hz, 16 bits, stéréo = 2 canaux)
+assert taille_audio_ko(44100, 16, 2, 10) == 1764.0, "Vérifiez la formule"
+print("✅ Exercice 3 validé ! Taille pour 10s CD :", taille_audio_ko(44100, 16, 2, 10), "ko")</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-3')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-3" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def taille_audio_ko(freq, quantif, canaux, duree):
+    taille_bits = freq * quantif * canaux * duree
+    taille_octets = taille_bits / 8
+    return taille_octets / 1000</code></pre>
             </div>
         </section>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+    
     <script src="js/app.js"></script>
+    <script src="js/python-ide.js"></script>
 </body>
 </html>
