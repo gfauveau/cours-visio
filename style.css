@@ -595,3 +595,96 @@ code {
     .navbar h1 { font-size: 1.7rem; }
     .box { padding: 1.4rem; }
 }
+/* --- CASES À CLIQUER (RÉPONSES INTERACTIVES) --- */
+.conv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 0.9rem;
+    margin-top: 1.25rem;
+}
+
+.conv-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.conv-item:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+.conv-question {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.conv-question sub {
+    font-size: 0.72em;
+    color: #94a3b8;
+}
+
+.reveal-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px dashed rgba(99, 102, 241, 0.55);
+    background: rgba(99, 102, 241, 0.12);
+    color: #a5b4fc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: right;
+}
+
+.reveal-chip:hover {
+    background: rgba(99, 102, 241, 0.25);
+    border-style: solid;
+    color: #ffffff;
+}
+
+.reveal-chip.revealed {
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    background: rgba(16, 185, 129, 0.16);
+    color: #6ee7b7;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.table-bases {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+.table-bases th, .table-bases td {
+    padding: 0.55rem 0.4rem;
+    border: 1px solid var(--glass-border);
+}
+
+.table-bases th {
+    background: rgba(99, 102, 241, 0.18);
+    color: #a5b4fc;
+}
+
+.table-bases td {
+    background: rgba(15, 23, 42, 0.45);
+    color: var(--text-secondary);
+}
