@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séance 02 — Les Variables en Python (1re NSI)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="back-link">← Retour au programme</a>
+            <br>
+            <span class="navbar-tag">Séance 02 • Bases de Python (1re NSI)</span>
+            <h1>Les Variables, l'Affectation et les Types</h1>
+            <p>Espaces-mémoires, évaluation séquentielle, types fondamentaux et bonnes pratiques</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- PARTIE 1 : NOTIONS DE COURS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📖</div>
+                <h2>1. Synthèse de cours : Mémoire et Affectation</h2>
+            </div>
+
+            <h3>A. L'analogie de la commode et l'affectation (=)</h3>
+            <p>La mémoire de l'ordinateur fonctionne comme une commode composée de tiroirs étiquetés. Lorsqu'on écrit <code>a = 2</code>, Python vérifie si le tiroir <code>a</code> existe (sinon il le crée), ouvre le tiroir et y dépose <code>2</code> en <strong>écrasant définitivement</strong> l'ancienne valeur.</p>
+            <ul>
+                <li><strong>Différence avec les mathématiques :</strong> Le signe <code>=</code> est une <strong>affectation</strong> (et non une égalité). Ainsi, <code>compteur = compteur + 1</code> (raccourci en <code>compteur += 1</code>) signifie : « prendre la valeur actuelle, ajouter 1, et ranger le résultat dans <code>compteur</code> ».</li>
+                <li><strong>Exécution de droite à gauche :</strong> Python évalue d'abord l'expression à droite du <code>=</code>, puis range le résultat dans la variable à gauche.</li>
+                <li><strong>Erreur d'initialisation :</strong> Lire une variable qui n'a jamais reçu de valeur déclenche une erreur <code>NameError: name '...' is not defined</code>.</li>
+            </ul>
+
+            <h3>B. Les 4 types fondamentaux et le typage dynamique</h3>
+            <p>Python devine automatiquement le type lors de l'affectation (on peut l'interroger avec la fonction <code>type()</code>) :</p>
+            <ul>
+                <li><code>int</code> <strong>(Entier) :</strong> Nombres entiers positifs ou négatifs (ex. <code>a = 2</code>). Les calculs sont exacts.</li>
+                <li><code>float</code> <strong>(Flottant) :</strong> Nombres décimaux (ex. <code>prix = 0.08</code>). Représentation approchée en binaire.</li>
+                <li><code>str</code> <strong>(Chaîne) :</strong> Texte entre guillemets simples ou doubles (ex. <code>nom = 'Harry'</code>).</li>
+                <li><code>bool</code> <strong>(Booléen) :</strong> Valeur logique <code>True</code> ou <code>False</code>.</li>
+            </ul>
+
+            <div class="callout">
+                ⚠️ <strong>Piège des flottants en machine :</strong> En mathématiques, $0{,}5^2 + 1{,}2^2 = 1{,}3^2$ ($1{,}69 = 1{,}69$). Pourtant, en Python, <code>0.5**2 + 1.2**2 == 1.3**2</code> renvoie <code>False</code> à cause des légères erreurs d'arrondi lors du codage binaire des nombres à virgule !
+            </div>
+
+            <h3>C. Règles et conventions de nommage</h3>
+            <ul>
+                <li><strong>Règles obligatoires :</strong> Lettres (a-z, A-Z), chiffres (0-9) et <code>_</code> uniquement ; interdit de commencer par un chiffre ; pas d'espaces ni de caractères spéciaux ; sensible à la casse (<code>var_A ≠ var_a</code>) ; mots réservés interdits (<code>if</code>, <code>for</code>, <code>def</code>...).</li>
+                <li><strong>Convention <code>snake_case</code> :</strong> Noms explicites en minuscules séparés par des tirets bas, sans accents (ex. <code>compte_epargne_client</code>).</li>
+            </ul>
+        </section>
+
+        <!-- PARTIE 2 : CHECK-POINT QCM -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">⚡</div>
+                <h2>2. Check-point rapide : Affectation &amp; Nommage</h2>
+            </div>
+            <p>Lequel de ces noms de variables respecte à la fois les règles de Python et la convention <strong>snake_case</strong> ?</p>
+            <div class="quiz-options">
+                <button onclick="verifierReponse(this, false)"><code>1er_score_joueur</code></button>
+                <button onclick="verifierReponse(this, false)"><code>score joueur</code></button>
+                <button onclick="verifierReponse(this, true)"><code>score_joueur_1</code></button>
+                <button onclick="verifierReponse(this, false)"><code>for</code></button>
+            </div>
+            <p id="quiz-feedback" class="feedback"></p>
+        </section>
+
+        <!-- PARTIE 3 : EXERCICE 1 - ÉCHANGE DE VALEURS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🔄</div>
+                <h2>3. Exercice Python 1 : Le problème de l'échange de valeurs</h2>
+            </div>
+            <p>On possède deux variables <code>x = 3</code> et <code>y = 5</code>. Si l'on écrit naïvement <code>x = y</code> puis <code>y = x</code>, la valeur initiale de <code>x</code> est écrasée et les deux variables valent <code>5</code>.<br>
+            <strong>Consigne :</strong> Complétez le code ci-dessous pour échanger les valeurs de <code>x</code> et <code>y</code> (à l'aide d'une variable tampon <code>temp</code> ou de l'affectation simultanée Python).</p>
+            
+            <div class="ide-container" id="ide-1">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">echange_variables.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-1')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-1')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">x = 3
+y = 5
+
+# Écrivez vos instructions d'échange ci-dessous
+
+
+# Tests de vérification
+assert x == 5 and y == 3, f"Attendu x=5, y=3 mais obtenu x={x}, y={y}"
+print(f"✅ Échange réussi ! x = {x} et y = {y}")</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-1')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-1" class="correction hidden">
+                <h4>✅ Deux méthodes possibles :</h4>
+                <pre><code># Méthode 1 : Avec une variable tampon (classique)
+temp = x
+x = y
+y = temp
+
+# Méthode 2 : Affectation simultanée (spécificité Python)
+x, y = y, x</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 4 : EXERCICE 2 - INTÉRÊTS COMPOSÉS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📈</div>
+                <h2>4. Exercice Python 2 : Évaluation séquentielle et intérêts composés</h2>
+            </div>
+            <p>Un client place un <code>capital</code> initial de <strong>1000.0 €</strong> à un <code>taux</code> annuel de <strong>5 %</strong> (<code>0.05</code>).<br>
+            <strong>Consigne :</strong> Initialisez les variables <code>capital</code> et <code>taux</code>, puis mettez à jour séquentiellement <code>capital</code> pour calculer sa valeur au bout de <strong>3 ans</strong>.</p>
+            
+            <div class="ide-container" id="ide-2">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">interets_composes.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-2')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-2')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source"># 1. Initialisez capital et taux
+capital = 1000.0
+taux = 0.05
+
+# 2. Mettez à jour capital pour l'année 1, l'année 2 et l'année 3
+
+
+# Vérification
+assert round(capital, 3) == 1157.625, f"Valeur obtenue : {capital}"
+print("✅ Capital après 3 ans :", round(capital, 2), "€")</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-2')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-2" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>capital = 1000.0
+taux = 0.05
+
+capital = capital * (1 + taux)  # Fin Année 1 : 1050.0 €
+capital = capital * (1 + taux)  # Fin Année 2 : 1102.5 €
+capital = capital * (1 + taux)  # Fin Année 3 : 1157.625 €</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 5 : EXERCICE 3 - APPLICATION AUX CONDITIONS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">💳</div>
+                <h2>5. Exercice Python 3 : Calcul de tarif avec remise</h2>
+            </div>
+            <p>Le prix unitaire d'une carte de visite est de <strong>0,08 €</strong>. À partir de <strong>1 000 cartes commandées</strong> (inclus), un rabais de <strong>5 %</strong> est accordé sur l'ensemble de la commande.<br>
+            <strong>Consigne :</strong> Complétez les deux affectations de la variable <code>prix</code> dans la structure conditionnelle.</p>
+            
+            <div class="ide-container" id="ide-3">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">tarif_cartes.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-3')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-3')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">nombre_cartes = 1200
+
+if nombre_cartes < 1000:
+    prix = 0  # À compléter (tarif normal)
+else:
+    prix = 0  # À compléter (avec rabais de 5 %)
+
+# Vérification pour 1200 cartes
+assert round(prix, 2) == 91.2, f"Attendu 91.2 € mais obtenu {prix}"
+print("✅ Le prix total est de :", round(prix, 2), "€")</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-3')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-3" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>nombre_cartes = 1200
+
+if nombre_cartes < 1000:
+    prix = nombre_cartes * 0.08
+else:
+    prix = 0.95 * nombre_cartes * 0.08
+
+print("Le prix total est de :", round(prix, 2), "€")</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+    
+    <script src="app.js"></script>
+    <script src="python-ide.js"></script>
+</body>
+</html>
