@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séance 01 - Cours Interactif</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="back-link">← Retour aux séances</a>
+        <h1>Séance 01 : Concepts fondamentaux</h1>
+    </nav>
+
+    <main class="container">
+        <!-- PARTIE 1 : NOTIONS DE COURS -->
+        <section class="box cours">
+            <h2>📖 1. Notions essentielles</h2>
+            <p>Voici les points clés à retenir pour cette séance :</p>
+            <ul>
+                <li><strong>Définition 1 :</strong> Explication claire et concise du premier concept.</li>
+                <li><strong>Règle d'or :</strong> Ce qu'il faut toujours vérifier avant de se lancer.</li>
+            </ul>
+            <div class="callout">
+                💡 <strong>À retenir :</strong> Une astuce visuelle ou mnémotechnique à partager à l'écran.
+            </div>
+        </section>
+
+        <!-- PARTIE 2 : QUIZ EN DIRECT -->
+        <section class="box exercice">
+            <h2>⚡ 2. Check-point en direct (QCM)</h2>
+            <p>Quelle est la bonne affirmation ?</p>
+            <div class="quiz-options" id="quiz-1">
+                <button onclick="verifierReponse(this, false)">Option A : Première proposition</button>
+                <button onclick="verifierReponse(this, true)">Option B : La bonne réponse</button>
+                <button onclick="verifierReponse(this, false)">Option C : Troisième proposition</button>
+            </div>
+            <p id="quiz-feedback" class="feedback"></p>
+        </section>
+
+        <!-- PARTIE 3 : EXERCICE PRATIQUE & CORRECTION MASQUÉE -->
+        <section class="box exercice">
+            <h2>✍️ 3. Exercice d'application</h2>
+            <p><strong>Consigne :</strong> Résolvez le problème suivant en 5 minutes. Nous corrigeons ensemble juste après.</p>
+            <textarea placeholder="Zone de brouillon pour l'élève pendant la visio..." rows="4"></textarea>
+            
+            <button class="btn-primary" onclick="toggleCorrection('corr-1')">
+                Afficher / Masquer la correction
+            </button>
+            
+            <div id="corr-1" class="correction hidden">
+                <h4>✅ Correction détaillée :</h4>
+                <p>Voici les étapes de résolution à commenter ensemble à l'oral.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
