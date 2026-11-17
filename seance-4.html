@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séance 04 — Le Binaire et l'Hexadécimal (1re NSI)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="back-link">← Retour au programme</a>
+            <br>
+            <span class="navbar-tag">Séance 04 • Représentation des données (1re NSI)</span>
+            <h1>Le Binaire et l'Hexadécimal</h1>
+            <p>Systèmes de numération (bases 2, 10 et 16) et entraînement interactif aux conversions</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- PARTIE 1 : SYNTHÈSE DE COURS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📖</div>
+                <h2>1. Synthèse de cours : Systèmes de numération</h2>
+            </div>
+
+            <p>Un <strong>système de numération</strong> est une manière de représenter les nombres à l'aide de symboles. On précise la base utilisée en indice en bas à droite du nombre (ex. <code>101<sub>[2]</sub></code>, <code>328<sub>[10]</sub></code>, <code>FA<sub>[16]</sub></code>).</p>
+
+            <h3>I. Le système binaire (Base 2)</h3>
+            <p>Un ordinateur manipule des circuits électroniques à 2 états : <code>0</code> (pas de courant) et <code>1</code> (courant). Chaque chiffre binaire est appelé un <strong>bit</strong> (<em>Binary digIT</em>) et est pondéré par une puissance de 2 :</p>
+
+            <div style="overflow-x: auto;">
+                <table class="table-bases">
+                    <tr>
+                        <th>2<sup>7</sup></th>
+                        <th>2<sup>6</sup></th>
+                        <th>2<sup>5</sup></th>
+                        <th>2<sup>4</sup></th>
+                        <th>2<sup>3</sup></th>
+                        <th>2<sup>2</sup></th>
+                        <th>2<sup>1</sup></th>
+                        <th>2<sup>0</sup></th>
+                    </tr>
+                    <tr>
+                        <td>128</td>
+                        <td>64</td>
+                        <td>32</td>
+                        <td>16</td>
+                        <td>8</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+            </div>
+
+            <ul>
+                <li><strong>Binaire → Décimal :</strong> Additionner les puissances de 2 des bits qui sont à <code>1</code> (ex. <code>101<sub>[2]</sub> = 4 + 1 = 5<sub>[10]</sub></code>).</li>
+                <li><strong>Décimal → Binaire :</strong> Décomposer le nombre en somme de puissances de 2 en partant de la plus grande possible (ex. <code>6<sub>[10]</sub> = 4 + 2 = 110<sub>[2]</sub></code>).</li>
+            </ul>
+
+            <h3>II. Le système hexadécimal (Base 16)</h3>
+            <p>L'hexadécimal offre une écriture compacte du binaire grâce à <strong>16 symboles</strong> : <code>0 1 2 3 4 5 6 7 8 9 A B C D E F</code> (où <code>A=10</code>, <code>B=11</code>, <code>C=12</code>, <code>D=13</code>, <code>E=14</code>, <code>F=15</code>).</p>
+
+            <div style="overflow-x: auto;">
+                <table class="table-bases">
+                    <tr>
+                        <th>Hexa</th>
+                        <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td>
+                        <td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td>
+                    </tr>
+                    <tr>
+                        <th>Binaire</th>
+                        <td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td>
+                        <td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td>
+                    </tr>
+                    <tr>
+                        <th>Décimal</th>
+                        <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td>
+                        <td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="callout">
+                💡 <strong>Méthodes rapides en base 16 :</strong><br>
+                • <strong>Hexa ↔ Binaire :</strong> 1 chiffre hexadécimal correspond exactement à un paquet de <strong>4 bits (un quartet)</strong>.<br>
+                • <strong>Hexa (2 chiffres) → Décimal :</strong> Multiplier le chiffre de gauche par <code>16<sup>1</sup> = 16</code> et ajouter celui de droite (<code>16<sup>0</sup> = 1</code>).
+            </div>
+        </section>
+
+        <!-- BARRE DE CONTRÔLE GLOBAL POUR LA VISIO -->
+        <div class="toolbar-actions">
+            <button class="btn-primary" onclick="toggleToutesReponses(true)">👁️ Révéler toutes les réponses</button>
+            <button class="btn-secondary" onclick="toggleToutesReponses(false)">🙈 Masquer toutes les réponses</button>
+        </div>
+
+        <!-- PARTIE 2 : CONVERSION BINAIRE -> DÉCIMAL -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🔢</div>
+                <h2>2. Conversion du Binaire vers le Décimal</h2>
+            </div>
+            <p>Cliquez sur chaque case pour vérifier votre calcul (additionnez les puissances de 2 des bits à <code>1</code>) :</p>
+
+            <div class="conv-grid">
+                <div class="conv-item">
+                    <span class="conv-question">1100<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="12 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">1011<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="11 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">1111<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="15 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">101100<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="44 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">111<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="7 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">10010<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="18 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">101010<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="42 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">10000<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="16 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">1110000<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="112 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">1000010<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="66 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTIE 3 : CONVERSION DÉCIMAL -> BINAIRE -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">💻</div>
+                <h2>3. Conversion du Décimal vers le Binaire</h2>
+            </div>
+            <p>Décomposez chaque nombre décimal en somme de puissances de 2, puis cliquez pour vérifier :</p>
+
+            <div class="conv-grid">
+                <div class="conv-item">
+                    <span class="conv-question">17<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="10001 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">38<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="100110 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">23<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="10111 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">32<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="100000 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">67<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1000011 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">20<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="10100 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">15<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1111 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">9<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1001 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">45<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="101101 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">86<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1010110 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTIE 4 : CONVERSION HEXADÉCIMAL <-> BINAIRE -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🧩</div>
+                <h2>4. Conversion entre Hexadécimal et Binaire (Quartets)</h2>
+            </div>
+            <p>Regroupez les bits par paquets de 4 en partant de la droite (ou traduisez chaque chiffre hexa en 4 bits) :</p>
+
+            <div class="conv-grid">
+                <div class="conv-item">
+                    <span class="conv-question">47<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="0100 0111 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">9E<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1001 1110 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">D8<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1101 1000 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">FA<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1111 1010 [2]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">1010011<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="53 [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">110100001011<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="D0B [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">111000010<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="1C2 [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">100101101010<sub>[2]</sub> =</span>
+                    <button class="reveal-chip" data-answer="96A [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTIE 5 : CONVERSION HEXADÉCIMAL <-> DÉCIMAL -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🎯</div>
+                <h2>5. Conversion entre Hexadécimal et Décimal</h2>
+            </div>
+            <p>Utilisez les puissances de 16 (<code>16<sup>1</sup> = 16</code> et <code>16<sup>0</sup> = 1</code>) pour convertir directement :</p>
+
+            <div class="conv-grid">
+                <div class="conv-item">
+                    <span class="conv-question">13<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="19 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">7C<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="124 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">24<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="36 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">B9<sub>[16]</sub> =</span>
+                    <button class="reveal-chip" data-answer="185 [10]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">18<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="12 [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">93<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="5D [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">32<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="20 [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+                <div class="conv-item">
+                    <span class="conv-question">160<sub>[10]</sub> =</span>
+                    <button class="reveal-chip" data-answer="A0 [16]" onclick="toggleChip(this)">👁️ Révéler</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleChip(btn) {
+            const estRevele = btn.classList.toggle('revealed');
+            if (estRevele) {
+                btn.textContent = btn.getAttribute('data-answer');
+            } else {
+                btn.textContent = '👁️ Révéler';
+            }
+        }
+
+        function toggleToutesReponses(afficher) {
+            document.querySelectorAll('.reveal-chip').forEach(btn => {
+                if (afficher) {
+                    btn.classList.add('revealed');
+                    btn.textContent = btn.getAttribute('data-answer');
+                } else {
+                    btn.classList.remove('revealed');
+                    btn.textContent = '👁️ Révéler';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
