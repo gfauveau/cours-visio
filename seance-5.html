@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séance 05 — Projet Mini-jeu de Motricité (1re NSI)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="back-link">← Retour au programme</a>
+            <br>
+            <span class="navbar-tag">Séance 05 • Projet Collaboratif (Équipes de 3)</span>
+            <h1>Conception d'un Mini-jeu de Motricité</h1>
+            <p>Cahier des charges seniors, pistes d'idées, QCM de cadrage et prototypage de fonctions.py</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- PARTIE 1 : RÈGLES D'OR DU CAHIER DES CHARGES -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📋</div>
+                <h2>1. Les 4 règles d'or du cahier des charges</h2>
+            </div>
+            <p>Avant de vous lancer dans le code, votre proposition de jeu doit valider ces quatre piliers essentiels :</p>
+            <ul>
+                <li><strong>L'objectif moteur :</strong> Travailler un geste ciblé — précision du clic, suivi d'un mouvement, maintien immobile ou inclinaison (souris ou carte <code>micro:bit</code>).</li>
+                <li><strong>L'accessibilité (public senior) :</strong> Gros éléments visuels, contrastes élevés, vitesse lente ou réglable, règles immédiates et <strong>aucun « Game Over » brutal</strong> (on encourage et on laisse le temps).</li>
+                <li><strong>Le niveau technique (Début d'année + listes légères) :</strong> Variables, conditions (<code>if/else</code>), boucles (<code>for</code>, <code>while</code>), fonctions (<code>def</code>), module <code>random</code>, événements Tkinter (<code>bind</code>) et listes simples (couleurs, coordonnées, messages positifs).</li>
+                <li><strong>Le travail à trois :</strong> Découpage clair en deux fichiers (<code>main.py</code> pour l'interface/événements et <code>fonctions.py</code> pour la logique) avec un rôle défini par élève.</li>
+            </ul>
+
+            <div class="callout">
+                📅 <strong>Jalons du projet :</strong> Première version jouable attendue pour le <strong>17 décembre</strong> • Version finale complète (<code>main.py</code>, <code>fonctions.py</code>, diaporama <code>.pdf</code> et notes <code>.txt</code>) pour le <strong>1er avril</strong>.
+            </div>
+        </section>
+
+        <!-- PARTIE 2 : LES 6 PISTES DE MINI-JEUX -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">💡</div>
+                <h2>2. Catalogue des 6 pistes de mini-jeux</h2>
+            </div>
+
+            <h3>Piste A : Précision du clic et réflexes doux</h3>
+            <ul>
+                <li><strong>Concept 1 — « La cueillette au verger » (ou « Attrape-papillons ») :</strong> De gros fruits apparaissent un par un à des coordonnées aléatoires (<code>random.randint</code>). Pas de chrono stressant : le fruit attend le clic et affiche un message positif pioché dans une liste.</li>
+                <li><strong>Concept 2 — « Le piano lumineux » (Coordination &amp; mémoire douce) :</strong> 4 gros pavés de couleur (<code>["red", "blue", "green", "yellow"]</code>) s'allument à rythme libre ; le joueur clique sur la touche correspondante.</li>
+            </ul>
+
+            <h3>Piste B : Suivi de trajectoire et stabilité</h3>
+            <ul>
+                <li><strong>Concept 3 — « Le facteur du village » :</strong> Déplacer une icône le long d'un chemin très large (<code>&lt;Motion&gt;</code> ou boutons <code>micro:bit</code>). En cas de sortie de route, le personnage rebondit doucement au centre du chemin avec un signal visuel bienveillant.</li>
+                <li><strong>Concept 4 — « L'arrosage du jardin » :</strong> Maintenir le curseur immobile sur une fleur fanée pendant 2 secondes (boucle <code>after()</code> de Tkinter) pour la faire éclore, sans avoir besoin de cliquer rapidement.</li>
+            </ul>
+
+            <h3>Piste C &amp; D : Tri par glisser-déposer ou carte micro:bit</h3>
+            <ul>
+                <li><strong>Concept 5 — « Le tri du marché » :</strong> Glisser-déposer (<code>&lt;B1-Motion&gt;</code>, <code>&lt;ButtonRelease-1&gt;</code>) un aliment central vers deux très grands paniers latéraux, avec retour doux au centre en cas de lâcher hors zone.</li>
+                <li><strong>Concept 6 — « L'équilibre sur le fil » (micro:bit) :</strong> Incliner la carte à gauche ou à droite (accéléromètre) pour déplacer un large panier et rattraper des objets chutant lentement.</li>
+            </ul>
+        </section>
+
+        <!-- PARTIE 3 : QCM D'ÉVOLUTION DE L'IDÉE -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🧭</div>
+                <h2>3. QCM de cadrage : Faire évoluer votre concept</h2>
+            </div>
+            <p>Testez vos choix de conception en équipe à travers ces 4 questions clés avant d'écrire votre cahier des charges :</p>
+
+            <!-- Question 1 -->
+            <div style="margin-top: 1.5rem;">
+                <p><strong>Question 1 — Gestion de l'erreur :</strong> Dans <em>« Le facteur du village »</em>, le curseur sort légèrement de la route. Quelle réaction respecte le cahier des charges ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)">Afficher « PERDU ! » en rouge et remettre le score à zéro.</button>
+                    <button onclick="verifierReponse(this, true)">Replacer doucement l'icône au centre du chemin avec un message d'encouragement.</button>
+                    <button onclick="verifierReponse(this, false)">Fermer automatiquement la fenêtre Tkinter pour relancer le jeu.</button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- Question 2 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 2 — Paramètres d'accessibilité :</strong> Comment rendre votre jeu adaptable à différents publics lors des ateliers de motricité ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)">Imposer une vitesse maximale fixe pour stimuler les réflexes.</button>
+                    <button onclick="verifierReponse(this, true)">Proposer au menu deux réglages simples : « Taille des cibles (Grande / Moyenne) » et « Vitesse (Lente / Normale) ».</button>
+                    <button onclick="verifierReponse(this, false)">Demander à l'utilisateur de modifier le code source avant chaque partie.</button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- Question 3 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 3 — Structures de données :</strong> Quelle structure Python est la plus adaptée (et conforme au niveau début d'année) pour stocker les phrases positives affichées après chaque réussite ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, true)">Une liste simple de chaînes de caractères combinée à <code>random.choice()</code>.</button>
+                    <button onclick="verifierReponse(this, false)">Une base de données SQL externe hébergée sur un serveur.</button>
+                    <button onclick="verifierReponse(this, false)">Un arbre binaire de recherche équilibré.</button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- Question 4 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 4 — Architecture à 3 élèves :</strong> Quelle répartition des fichiers garantit que les 3 membres de l'équipe peuvent coder en parallèle sans se bloquer ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)">Les 3 élèves modifient en même temps un unique fichier de 400 lignes.</button>
+                    <button onclick="verifierReponse(this, true)">Élève 1 gère l'interface (<code>main.py</code>), Élève 2 code la mécanique/collisions (<code>fonctions.py</code>), Élève 3 gère l'aléatoire, les niveaux, les tests et le diaporama.</button>
+                    <button onclick="verifierReponse(this, false)">Un élève code tout le projet pendant que les deux autres regardent.</button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- PARTIE 4 : ATELIER CODE 1 - LOGIQUE MÉTIER (fonctions.py) -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">💻</div>
+                <h2>4. Prototypage Python 1 : Module <code>fonctions.py</code> (Cueillette &amp; Encouragements)</h2>
+            </div>
+            <p>Avant de créer l'interface graphique Tkinter, testez ici deux fonctions essentielles de votre fichier <code>fonctions.py</code> :</p>
+            <ul>
+                <li><code>choisir_encouragement(messages)</code> : renvoie un message tiré au hasard dans la liste <code>messages</code> (avec <code>random.randint</code> ou <code>random.choice</code>).</li>
+                <li><code>clic_dans_cible(clic_x, clic_y, cible_x, cible_y, rayon)</code> : renvoie <code>True</code> si la distance au carré entre le clic et le centre de la cible est inférieure ou égale à <code>rayon ** 2</code> : <code>(clic_x - cible_x)**2 + (clic_y - cible_y)**2 &lt;= rayon**2</code>.</li>
+            </ul>
+            
+            <div class="ide-container" id="ide-1">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">fonctions.py (Prototype)</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-1')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-1')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">import random
+
+encouragements = [
+    "Bravo, belle précision !",
+    "Excellent geste, continuez ainsi !",
+    "Magnifique récolte !",
+    "Très bien joué !"
+]
+
+def choisir_encouragement(messages):
+    # Renvoie un message aléatoire de la liste messages
+    pass
+
+def clic_dans_cible(clic_x, clic_y, cible_x, cible_y, rayon):
+    # Renvoie True si le clic est dans le disque de centre (cible_x, cible_y)
+    pass
+
+# Tests automatiques de validation
+msg = choisir_encouragement(encouragements)
+assert msg in encouragements, "Le message doit provenir de la liste"
+assert clic_dans_cible(210, 195, 200, 200, 40) == True, "Clic proche du centre : devrait être True"
+assert clic_dans_cible(300, 300, 200, 200, 40) == False, "Clic trop loin : devrait être False"
+
+print("✅ Fonctions validées !")
+print("Message tiré au sort :", msg)</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-1')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-1" class="correction hidden">
+                <h4>✅ Proposition de correction pour <code>fonctions.py</code> :</h4>
+                <pre><code>def choisir_encouragement(messages):
+    indice = random.randint(0, len(messages) - 1)
+    return messages[indice]
+    # Alternative : return random.choice(messages)
+
+def clic_dans_cible(clic_x, clic_y, cible_x, cible_y, rayon):
+    distance_carre = (clic_x - cible_x) ** 2 + (clic_y - cible_y) ** 2
+    return distance_carre <= rayon ** 2</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 5 : ATELIER CODE 2 - GABARIT TKINTER PRÊT À COPIER -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🖥️</div>
+                <h2>5. Squelette Tkinter prêt à l'emploi (<code>main.py</code>)</h2>
+            </div>
+            <p>Ce modèle complet (à exécuter dans <strong>Thonny</strong> ou <strong>VS Code</strong> sur votre ordinateur) met en place une fenêtre accessible de <code>800×600</code> avec de grosses cibles, un sélecteur de taille et des encouragements sans aucun échec punitif. Vous pouvez le modifier librement pour l'adapter au jeu choisi par votre équipe :</p>
+
+            <div class="correction" style="display: block; margin-top: 1rem;">
+                <h4>📄 Code de départ pour <code>main.py</code> (La Cueillette au Verger)</h4>
+                <pre><code>import tkinter as tk
+import random
+
+# --- PARAMÈTRES D'ACCESSIBILITÉ ---
+LARGEUR, HAUTEUR = 800, 600
+rayon_cible = 45  # Grosse cible par défaut pour seniors
+score = 0
+messages = ["Bravo !", "Superbe précision !", "Continuez comme ça !", "Quelle adresse !"]
+
+def nouvelle_cible():
+    canvas.delete("cible")
+    x = random.randint(rayon_cible + 20, LARGEUR - rayon_cible - 20)
+    y = random.randint(rayon_cible + 20, HAUTEUR - rayon_cible - 20)
+    canvas.create_oval(
+        x - rayon_cible, y - rayon_cible,
+        x + rayon_cible, y + rayon_cible,
+        fill="#ef4444", outline="#ffffff", width=3, tags="cible"
+    )
+
+def gerer_clic(event):
+    global score
+    # Récupère les coordonnées de la cible affichée
+    coords = canvas.coords("cible")
+    if coords:
+        cx = (coords[0] + coords[2]) / 2
+        cy = (coords[1] + coords[3]) / 2
+        if (event.x - cx)**2 + (event.y - cy)**2 <= rayon_cible**2:
+            score += 1
+            label_score.config(text=f"Récolte : {score}  |  {random.choice(messages)}")
+            nouvelle_cible()
+        else:
+            # Aucun échec punitif : on encourage simplement
+            label_score.config(text=f"Récolte : {score}  |  Presque ! Visez bien le centre du fruit.")
+
+def changer_taille():
+    global rayon_cible
+    rayon_cible = 30 if rayon_cible == 45 else 45
+    btn_taille.config(text=f"Taille cible : {'Grande' if rayon_cible == 45 else 'Moyenne'}")
+    nouvelle_cible()
+
+# --- INTERFACE GRAPHIQUE ---
+fenetre = tk.Tk()
+fenetre.title("Atelier Motricité — La Cueillette au Verger")
+
+barre_haut = tk.Frame(fenetre, bg="#0f172a", pady=10)
+barre_haut.pack(fill="x")
+
+label_score = tk.Label(barre_haut, text="Récolte : 0  |  Cliquez sur le fruit !",
+                       font=("Arial", 16, "bold"), fg="#f8fafc", bg="#0f172a")
+label_score.pack(side="left", padx=20)
+
+btn_taille = tk.Button(barre_haut, text="Taille cible : Grande", font=("Arial", 12, "bold"),
+                       command=changer_taille, bg="#6366f1", fg="white", padx=12, pady=5)
+btn_taille.pack(side="right", padx=20)
+
+canvas = tk.Canvas(fenetre, width=LARGEUR, height=HAUTEUR, bg="#ecfdf5")
+canvas.pack()
+canvas.bind("&lt;Button-1&gt;", gerer_clic)
+
+nouvelle_cible()
+fenetre.mainloop()</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+    
+    <script src="app.js"></script>
+    <script src="python-ide.js"></script>
+</body>
+</html>
