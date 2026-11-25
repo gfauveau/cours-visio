@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séance 06 — Les Bases de Python (1re NSI)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="back-link">← Retour au programme</a>
+            <br>
+            <span class="navbar-tag">Séance 06 • Langages et Programmation (1re NSI)</span>
+            <h1>Les Bases de Python : Conditions, Fonctions &amp; Listes</h1>
+            <p>Maîtriser les structures de contrôle, l'écriture de fonctions et la manipulation de listes simples</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- PARTIE 1 : SYNTHÈSE DE COURS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📖</div>
+                <h2>1. Synthèse de cours : Les fondamentaux Python</h2>
+            </div>
+
+            <h3>A. Opérateurs et expressions booléennes</h3>
+            <ul>
+                <li><strong>Opérateurs arithmétiques :</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (division décimale), <code>//</code> (quotient entier), <code>%</code> (reste / modulo), <code>**</code> (puissance).</li>
+                <li><strong>Opérateurs de comparaison :</strong> <code>==</code> (égal à), <code>!=</code> (différent de), <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>. Ils renvoient toujours un booléen (<code>True</code> ou <code>False</code>).</li>
+                <li><strong>Opérateurs logiques :</strong> <code>and</code> (et), <code>or</code> (ou), <code>not</code> (non).</li>
+            </ul>
+
+            <h3>B. Structures conditionnelles : <code>if / elif / else</code></h3>
+            <p>Permettent d'exécuter un bloc d'instructions uniquement si une condition est vérifiée :</p>
+            <ul>
+                <li><strong>Syntaxe :</strong> Deux-points <code>:</code> à la fin de chaque test et indentation de 4 espaces.</li>
+                <li><strong>Ordre d'évaluation :</strong> Python teste les conditions de haut en bas et exécute <strong>uniquement le premier bloc vrai</strong> (ignorant les <code>elif</code> et <code>else</code> suivants).</li>
+            </ul>
+
+            <h3>C. Les fonctions : <code>def</code>, paramètres et <code>return</code></h3>
+            <p>Une fonction factorise un traitement réutilisable : elle reçoit des <strong>paramètres</strong> en entrée et renvoie un résultat en sortie grâce au mot-clé <code>return</code>.</p>
+            <div class="callout">
+                ⚠️ <strong>Différence fondamentale entre <code>print()</code> et <code>return</code> :</strong><br>
+                • <code>print(x)</code> <strong>affiche</strong> une valeur à l'écran pour l'humain, mais la fonction renvoie <code>None</code> (la valeur est perdue pour la suite du programme).<br>
+                • <code>return x</code> <strong>renvoie</strong> le résultat au programme appelant (pour le stocker dans une variable ou le tester avec <code>assert</code>) et <strong>interrompt immédiatement</strong> l'exécution de la fonction.
+            </div>
+
+            <h3>D. Les listes légères (<code>list</code>)</h3>
+            <ul>
+                <li><strong>Création et accès :</strong> <code>scores = [12, 18, 9]</code> • Indice du premier élément : <code>scores[0]</code> (<code>12</code>) • Dernier élément : <code>scores[-1]</code> (<code>9</code>).</li>
+                <li><strong>Opérations courantes :</strong> <code>len(scores)</code> (taille), <code>scores.append(15)</code> (ajout en fin de liste), <code>18 in scores</code> (test d'appartenance).</li>
+            </ul>
+        </section>
+
+        <!-- PARTIE 2 : SÉRIE DE 5 QCM INTERACTIFS -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">⚡</div>
+                <h2>2. Check-point QCM (5 questions clés)</h2>
+            </div>
+
+            <!-- QCM 1 -->
+            <div style="margin-top: 1.25rem;">
+                <p><strong>Question 1 — Division euclidienne :</strong> Que vaut l'expression Python <code>17 // 5 + 17 % 5</code> ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)"><code>3.4</code></button>
+                    <button onclick="verifierReponse(this, true)"><code>5</code> (car <code>17 // 5 = 3</code> et <code>17 % 5 = 2</code>)</button>
+                    <button onclick="verifierReponse(this, false)"><code>6</code></button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- QCM 2 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 2 — Conditions enchaînées :</strong> Si <code>note = 16</code>, qu'affiche ce code ?<br>
+                <code>if note &gt;= 10: print("Admis")</code><br>
+                <code>elif note &gt;= 14: print("Mention")</code></p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, true)">Uniquement <code>Admis</code> (le premier test vrai court-circuite le <code>elif</code>)</button>
+                    <button onclick="verifierReponse(this, false)"><code>Admis</code> puis <code>Mention</code></button>
+                    <button onclick="verifierReponse(this, false)">Uniquement <code>Mention</code></button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- QCM 3 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 3 — <code>print</code> vs <code>return</code> :</strong> On définit <code>def double(x): print(2 * x)</code>. Que vaut <code>y = double(4)</code> ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)"><code>8</code></button>
+                    <button onclick="verifierReponse(this, true)"><code>None</code> (car la fonction n'a pas d'instruction <code>return</code>)</button>
+                    <button onclick="verifierReponse(this, false)">Une erreur <code>TypeError</code></button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- QCM 4 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 4 — Indice d'une liste :</strong> Soit <code>couleurs = ["rouge", "vert", "bleu", "jaune"]</code>. Comment accéder à <code>"bleu"</code> ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)"><code>couleurs[3]</code></button>
+                    <button onclick="verifierReponse(this, true)"><code>couleurs[2]</code> (la numérotation commence à 0)</button>
+                    <button onclick="verifierReponse(this, false)"><code>couleurs(2)</code></button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+
+            <!-- QCM 5 -->
+            <div style="margin-top: 1.75rem;">
+                <p><strong>Question 5 — Opérateurs logiques :</strong> Quelle expression est vraie uniquement si <code>age</code> est compris entre 12 et 17 ans inclus ?</p>
+                <div class="quiz-options">
+                    <button onclick="verifierReponse(this, false)"><code>age &gt;= 12 or age &lt;= 17</code></button>
+                    <button onclick="verifierReponse(this, true)"><code>age &gt;= 12 and age &lt;= 17</code></button>
+                    <button onclick="verifierReponse(this, false)"><code>age &gt; 12 and age &lt; 17</code></button>
+                </div>
+                <p class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- PARTIE 3 : EXERCICE 1 - CONDITIONS & FONCTION -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🌡️</div>
+                <h2>3. Exercice Python 1 : Bulletin météo (<code>if / elif / else</code>)</h2>
+            </div>
+            <p>Écrivez la fonction <code>bulletin_meteo(temp)</code> qui renvoie :</p>
+            <ul>
+                <li><code>"Gel"</code> si <code>temp &lt;= 0</code>,</li>
+                <li><code>"Frais"</code> si <code>0 &lt; temp &lt; 15</code>,</li>
+                <li><code>"Doux"</code> si <code>15 &lt;= temp &lt;= 25</code>,</li>
+                <li><code>"Chaud"</code> si <code>temp &gt; 25</code>.</li>
+            </ul>
+            
+            <div class="ide-container" id="ide-1">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">meteo.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-1')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-1')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def bulletin_meteo(temp):
+    # Complétez avec if / elif / else et return
+    pass
+
+# Tests de vérification
+assert bulletin_meteo(-3) == "Gel"
+assert bulletin_meteo(0) == "Gel"
+assert bulletin_meteo(10) == "Frais"
+assert bulletin_meteo(20) == "Doux"
+assert bulletin_meteo(31) == "Chaud"
+print("✅ Exercice 1 validé ! Pour 20°C :", bulletin_meteo(20))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-1')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-1" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def bulletin_meteo(temp):
+    if temp <= 0:
+        return "Gel"
+    elif temp < 15:
+        return "Frais"
+    elif temp <= 25:
+        return "Doux"
+    else:
+        return "Chaud"</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 4 : EXERCICE 2 - OPÉRATEUR MODULO & FONCTION BOOLÉENNE -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📅</div>
+                <h2>4. Exercice Python 2 : Année bissextile (Logique booléenne)</h2>
+            </div>
+            <p>Une année est <strong>bissextile</strong> si elle est divisible par 4 <strong>et</strong> non divisible par 100, <strong>ou</strong> si elle est divisible par 400.<br>
+            <strong>Consigne :</strong> Complétez la fonction <code>est_bissextile(annee)</code> pour qu'elle renvoie <code>True</code> ou <code>False</code>.</p>
+            
+            <div class="ide-container" id="ide-2">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">bissextile.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-2')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-2')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def est_bissextile(annee):
+    # Utilisez l'opérateur % (modulo) et les opérateurs logiques and / or
+    pass
+
+# Tests de vérification
+assert est_bissextile(2024) == True, "2024 est bissextile"
+assert est_bissextile(1900) == False, "1900 n'est pas bissextile (divisible par 100)"
+assert est_bissextile(2000) == True, "2000 est bissextile (divisible par 400)"
+assert est_bissextile(2026) == False, "2026 n'est pas bissextile"
+print("✅ Exercice 2 validé ! 2024 :", est_bissextile(2024), "| 2026 :", est_bissextile(2026))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-2')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-2" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def est_bissextile(annee):
+    return (annee % 4 == 0 and annee % 100 != 0) or (annee % 400 == 0)</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 5 : EXERCICE 3 - LISTES & FILTRAGE -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">📊</div>
+                <h2>5. Exercice Python 3 : Filtrer une liste avec <code>append()</code></h2>
+            </div>
+            <p>Complétez la fonction <code>notes_au_dessus(notes, seuil)</code> qui prend en paramètre une liste de notes et un <code>seuil</code>, et renvoie une <strong>nouvelle liste</strong> contenant uniquement les notes supérieures ou égales au <code>seuil</code>.</p>
+            
+            <div class="ide-container" id="ide-3">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">filtrage_liste.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-3')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-3')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def notes_au_dessus(notes, seuil):
+    resultat = []
+    # Parcourez notes et ajoutez dans resultat les valeurs >= seuil
+    
+    return resultat
+
+# Tests de vérification
+mes_notes = [8, 14, 10, 17, 6, 15]
+assert notes_au_dessus(mes_notes, 10) == [14, 10, 17, 15]
+assert notes_au_dessus(mes_notes, 18) == []
+print("✅ Exercice 3 validé ! Notes >= 10 :", notes_au_dessus(mes_notes, 10))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-3')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-3" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def notes_au_dessus(notes, seuil):
+    resultat = []
+    for n in notes:
+        if n >= seuil:
+            resultat.append(n)
+    return resultat</code></pre>
+            </div>
+        </section>
+
+        <!-- PARTIE 6 : EXERCICE 4 - SYNTHÈSE (MOYENNE & APPRÉCIATION) -->
+        <section class="box">
+            <div class="box-header">
+                <div class="box-icon">🏆</div>
+                <h2>6. Exercice Python 4 : Défi synthèse (Moyenne d'une liste)</h2>
+            </div>
+            <p>Écrivez la fonction <code>moyenne(liste_nombres)</code> qui calcule et renvoie la moyenne arithmétique d'une liste non vide de nombres (sans utiliser <code>sum()</code>, uniquement avec une boucle et <code>len()</code>).</p>
+            
+            <div class="ide-container" id="ide-4">
+                <div class="ide-toolbar">
+                    <div class="ide-title-group">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <span class="ide-filename">moyenne.py</span>
+                    </div>
+                    <div>
+                        <button class="btn-secondary" onclick="reinitialiserCode('ide-4')">Réinitialiser</button>
+                        <button class="btn-run" onclick="executerPython('ide-4')" disabled>⏳ Chargement Python...</button>
+                    </div>
+                </div>
+                <textarea class="code-source">def moyenne(liste_nombres):
+    # Calculez la somme des éléments puis divisez par len(liste_nombres)
+    pass
+
+# Tests de vérification
+assert moyenne([10, 15, 20]) == 15.0
+assert moyenne([12, 14]) == 13.0
+print("✅ Exercice 4 validé ! Moyenne de [10, 15, 20] :", moyenne([10, 15, 20]))</textarea>
+                <div class="console-header">Console Python</div>
+                <pre class="console-output">En attente d'exécution...</pre>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 1.25rem;" onclick="toggleCorrection('corr-4')">
+                Afficher / Masquer le corrigé
+            </button>
+            <div id="corr-4" class="correction hidden">
+                <h4>✅ Proposition de correction :</h4>
+                <pre><code>def moyenne(liste_nombres):
+    total = 0
+    for valeur in liste_nombres:
+        total += valeur
+    return total / len(liste_nombres)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+    
+    <script src="app.js"></script>
+    <script src="python-ide.js"></script>
+</body>
+</html>
